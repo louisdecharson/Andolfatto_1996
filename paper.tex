@@ -7,6 +7,7 @@
 \geometry{verbose,tmargin=2cm,bmargin=2cm,lmargin=2cm,rmargin=2cm}
 \usepackage{calc}
 \usepackage{babel}
+\usepackage{amsmath}
 \begin{document}
 
 \title{Business cycles and labor market search (David Andolfato)}
@@ -16,7 +17,7 @@
 
 \maketitle
 
-\subsection*{II. The model}
+\section{The model}
 
 The model nest a labor-market-search framework into an standard RBC
 model. He assume that there are households distributed uniformly on
@@ -34,7 +35,7 @@ comprises a single job; in what follows, the terms firm and job will
 be used interchangeably.
 
 
-\subsubsection*{A. The search process}
+\subsection{The search process}
 
 In order to produce output, each job requires a worker. Let $n_{t}$,
 denote the number of jobs that are matched with a worker at the beginning
@@ -105,42 +106,41 @@ stated above. The primed variables denote 'next period values'.
 
 \subsubsection*{Equations of the model to log-linearize}
 
-\begin{equation}
-U_{c}(c)=\beta E_{G}\left[F_{k}(k',n'l';\: z')+(1-\delta)\right]U_{c}(c')\label{eq:}
+\begin{equation} \label{eq:P1}
+U_{c}(c)=\beta E_{G}\left[F_{k}(k',n'l';\: z')+(1-\delta)\right]U_{c}(c')
 \end{equation}
 
 
-\begin{equation}
-\phi_{1}H_{l}(1-l)=F_{l}(k,\: nl;\: z)U_{c}(c)\label{eq:-1}
+\begin{equation} \label{eq:P2}
+\phi_{1}H_{l}(1-l)=F_{l}(k,\: nl;\: z)U_{c}(c)
 \end{equation}
  
 
-\begin{equation}
-\kappa vU_{c}(c)=\mu\alpha M(v,\:(1-n)e)\label{eq:-2}
+\begin{equation} \label{eq:P3}
+\kappa vU_{c}(c)=\mu\alpha M(v,\:(1-n)e)
 \end{equation}
 
 
-{\small 
-\begin{equation}
-\mu=\beta E_{G}\left\{ \phi_{1}H(1-l')-\phi_{2}H(1-e)+U_{c}(c')F_{n'}(k',n'l';\: z')l'+\mu'\left[1-\sigma-(1-\alpha)p(v',n')\right]\right\} \label{eq:7}
-\end{equation}
-}{\small \par}
-
-\begin{equation}
-c+k'+\kappa v=F(k,\: nl;\: z)+(1-\delta)k\label{eq:8}
+\begin{equation} \label{eq:P4}
+\mu=\beta E_{G}\left\{ \phi_{1}H(1-l')-\phi_{2}H(1-e)+U_{c}(c')F_{n'}(k',n'l';\: z')l'+\mu'\left[1-\sigma-(1-\alpha)p(v',n')\right]\right\} 
 \end{equation}
 
 
-\begin{equation}
-n'=(1-\sigma)n+M(v,\:(1-n)e)\label{eq:9}
+\begin{equation} \label{eq:P5}
+c+k'+\kappa v=F(k,\: nl;\: z)+(1-\delta)k
 \end{equation}
 
 
-{\small 
-\begin{equation}
-w=(1-\alpha)F_{2}(k,\: nl;\: z)+\alpha\left[\frac{\left[\phi_{2}H(1-e)-\phi_{1}H(1-l)\right]+p(v,\: n)(1-\alpha)\mu}{U_{c}(c)}\right]\frac{1}{l}\label{eq:10}
+\begin{equation} \label{eq:P6}
+n'=(1-\sigma)n+M(v,\:(1-n)e)
 \end{equation}
-}{\small \par}
+
+
+
+\begin{equation} \label{eq:P7}
+w=(1-\alpha)F_{2}(k,\: nl;\: z)+\alpha\left[\frac{\left[\phi_{2}H(1-e)-\phi_{1}H(1-l)\right]+p(v,\: n)(1-\alpha)\mu}{U_{c}(c)}\right]\frac{1}{l}
+\end{equation}
+
 
 The functional forms for $U$, $H$, $F$, $M$ and $G$ are as follows:
 \begin{itemize}
@@ -156,121 +156,44 @@ the following stochastic process:
 \begin{itemize}
 \item $z'=\rho z+\tilde{\varepsilon}$
 \end{itemize}
-where $0<\rho<1$ and $\tilde{\varepsilon}$ is an independently and
-identically distributed random variable. In particular, assume that
-$\tilde{\varepsilon}\in\left\{ -\varepsilon,\:\varepsilon\right\} $,
-$\varepsilon>0$, and $prob(\varepsilon)$ = $prob(-\varepsilon)$
-=$\frac{1}{2}$ . then equations (\ref{eq:}) to (\ref{eq:10}) take
-the form.
+where $0<\rho<1$ and $\tilde{\varepsilon}$ is an independently and identically distributed random variable. In particular, assume that
+$\tilde{\varepsilon}\in\left\{ -\varepsilon,\:\varepsilon\right\} $,$\varepsilon>0$, and $prob(\varepsilon)$ = $prob(-\varepsilon)$=$\frac{1}{2}$ . \\
+Then equations (\ref{eq:P1}) to (\ref{eq:P7}) take the form:
+
+
 \begin{itemize}
-\item (\ref{eq:}') $\frac{1}{c}=\beta E_{G}\left[\theta exp(z')\zeta(\frac{n'l'}{k})^{(1-\theta)}+(1-\delta)\right]\frac{1}{c'}$
-\item (\ref{eq:-1}') $\phi_{1}\left(1-l\right)^{-\eta}=(1-\theta)exp(z)\zeta k^{\theta}(nl)^{-\theta}\frac{1}{c}$
-\item (\ref{eq:-2}') $\kappa v\frac{1}{c}=\mu\alpha\chi v^{\alpha}((1-n)e)^{(1-\alpha)}$
-\item (\ref{eq:7}') $\mu=\beta E_{G}\left\{ \phi_{1}\frac{\left(1-l'\right)^{(1-\eta)}}{(1-\eta)}-\phi_{2}\frac{\left(1-e\right)^{(1-\eta)}}{(1-\eta)}+\frac{1}{c'}(1-\theta)exp(z)\zeta k'^{\theta}(n'l')^{-\theta}l'+\mu'\left[1-\sigma-(1-\alpha)\frac{\chi v'^{\alpha}((1-n')e)^{(1-\alpha)}}{1-n'}\right]\right\} $
-\item (\ref{eq:8}') $c+k'+\kappa v=exp(z)\zeta k^{\theta}(nl)^{(1-\theta)}+(1-\delta)k$
-\item (\ref{eq:9}') $n'=(1-\sigma)n+\chi v^{\alpha}((1-n)e)^{(1-\alpha)}$
-\item {\small (\ref{eq:10}') $w=(1-\alpha)(1-\theta)exp(z)\zeta k^{\theta}(nl)^{-\theta}+\alpha\left[\left(\phi_{2}\frac{\left(1-e\right)^{(1-\eta)}}{(1-\eta)}-\phi_{1}\frac{\left(1-l\right)^{(1-\eta)}}{(1-\eta)}\right)+(1-\alpha)\frac{\chi v{}^{\alpha}((1-n)e)^{(1-\alpha)}}{1-n}\mu\right]\frac{c}{l}$}{\small \par}
+\item (\ref{eq:P1}') $\frac{1}{c}=\beta E_{G}\left[\theta exp(z')\zeta(\frac{n'l'}{k'})^{(1-\theta)}+(1-\delta)\right]\frac{1}{c'}$
+\item (\ref{eq:P2}') $\phi_{1}\left(1-l\right)^{-\eta}=(1-\theta)exp(z)\zeta k^{\theta}(nl)^{-\theta}\frac{1}{c}$
+\item (\ref{eq:P3}') $\kappa v\frac{1}{c}=\mu\alpha\chi v^{\alpha}((1-n)e)^{(1-\alpha)}$
+\item (\ref{eq:P4}') $\mu=\beta E_{G}\left\{ \phi_{1}\frac{\left(1-l'\right)^{(1-\eta)}}{(1-\eta)}-\phi_{2}\frac{\left(1-e\right)^{(1-\eta)}}{(1-\eta)}+\frac{1}{c'}(1-\theta)exp(z)\zeta k'^{\theta}(n'l')^{-\theta}l'+\mu'\left[1-\sigma-(1-\alpha)\frac{\chi v'^{\alpha}((1-n')e)^{(1-\alpha)}}{1-n'}\right]\right\} $
+\item (\ref{eq:P5}') $c+k'+\kappa v=exp(z)\zeta k^{\theta}(nl)^{(1-\theta)}+(1-\delta)k$
+\item (\ref{eq:P6}') $n'=(1-\sigma)n+\chi v^{\alpha}((1-n)e)^{(1-\alpha)}$
+\item {\small (\ref{eq:P7}') $w=(1-\alpha)(1-\theta)exp(z)\zeta k^{\theta}(nl)^{-\theta}+\alpha\left[\left(\phi_{2}\frac{\left(1-e\right)^{(1-\eta)}}{(1-\eta)}-\phi_{1}\frac{\left(1-l\right)^{(1-\eta)}}{(1-\eta)}\right)+(1-\alpha)\frac{\chi v{}^{\alpha}((1-n)e)^{(1-\alpha)}}{1-n}\mu\right]\frac{c}{l}$}{\small \par}
 \end{itemize}
 
 \subsubsection*{Equations at the steady state}
 \begin{itemize}
-\item (\ref{eq:}'') $1=\beta\left[\theta\zeta(\frac{n*l*}{k*})^{(1-\theta)}+(1-\delta)\right]$
-\item (\ref{eq:-1}'') $\phi_{1}\left(1-l*\right)^{-\eta}=(1-\theta)\zeta(k*)^{\theta}(n*l*)^{-\theta}\frac{1}{c*}$
-\item (\ref{eq:-2}'') $\frac{\kappa v*}{c*}=\mu*\alpha\chi(v*)^{\alpha}((1-n*)e)^{(1-\alpha)}$
-\item (\ref{eq:7}'') $\mu*=\beta\left\{ \phi_{1}\frac{\left(1-l*\right)^{(1-\eta)}}{(1-\eta)}-\phi_{2}\frac{\left(1-e\right)^{(1-\eta)}}{(1-\eta)}+(1-\theta)\zeta(k*)^{\theta}(n*l*)^{-\theta}\frac{l*}{c*}+\mu*\left[1-\sigma-(1-\alpha)\frac{\chi(v*)^{\alpha}((1-n*)e)^{(1-\alpha)}}{1-n*}\right]\right\} $
-\item (\ref{eq:8}'') $c*+\delta k*+\kappa v*=\zeta(k*)^{\theta}(n*l*)^{(1-\theta)}$
-\item (\ref{eq:9}'') $\sigma n*=\chi(v*)^{\alpha}((1-n*)e)^{(1-\alpha)}$
-\item {\small (\ref{eq:10}'') $w*=(1-\alpha)(1-\theta)\zeta(k*)^{\theta}(n*l*)^{-\theta}+\alpha\left[\left(\phi_{2}\frac{\left(1-e\right)^{(1-\eta)}}{(1-\eta)}-\phi_{1}\frac{\left(1-l*\right)^{(1-\eta)}}{(1-\eta)}\right)-(1-\alpha)\frac{\chi(v*)^{\alpha}((1-n*)e)^{(1-\alpha)}}{1-n}\mu*\right]\frac{c*}{l*}$}{\small \par}
-\end{itemize}
-{\footnotesize 
-\[
-w*=(1-\alpha)(1-\theta)\zeta(k*)^{\theta}(n*l*)^{-\theta}+\alpha\left[\left(\phi_{2}\frac{\left(1-e\right)^{(1-\eta)}}{(1-\eta)}-\phi_{1}\frac{\left(1-l*\right)^{(1-\eta)}}{(1-\eta)}\right)-(1-\alpha)\frac{\chi(v*)^{\alpha}((1-n*)e)^{(1-\alpha)}}{1-n*}\mu*\right]\frac{c*}{l*}
-\]
-}{\footnotesize \par}
-
-from (\ref{eq:7}'') we have 
-
-{\footnotesize 
-\[
-\frac{\mu*}{\beta}-\mu*(1-\sigma)=\left\{ \phi_{1}\frac{\left(1-l*\right)^{(1-\eta)}}{(1-\eta)}-\phi_{2}\frac{\left(1-e\right)^{(1-\eta)}}{(1-\eta)}+\frac{1}{c*}(1-\theta)\zeta(k*)^{\theta}(n*l*)^{-\theta}l*+\mu*\left[-(1-\alpha)\frac{\chi(v*)^{\alpha}((1-n*)e)^{(1-\alpha)}}{1-n*}\right]\right\} 
-\]
-}{\footnotesize \par}
-
-{\footnotesize 
-\[
-\mu*(1-\sigma)-\frac{\mu*}{\beta}+\frac{1}{c*}(1-\theta)\zeta(k*)^{\theta}(n*l*)^{-\theta}l*=\left\{ \phi_{2}\frac{\left(1-e\right)^{(1-\eta)}}{(1-\eta)}-\phi_{1}\frac{\left(1-l*\right)^{(1-\eta)}}{(1-\eta)}-\mu*\left[(1-\alpha)\frac{\chi(v*)^{\alpha}((1-n*)e)^{(1-\alpha)}}{1-n*}\right]\right\} 
-\]
-}{\footnotesize \par}
-
-{\footnotesize 
-\[
-\mu*\left((1-\sigma)-\frac{1}{\beta}\right)+\frac{1}{c*}(1-\theta)\zeta(k*)^{\theta}(n*l*)^{-\theta}l*=\left\{ \phi_{2}\frac{\left(1-e\right)^{(1-\eta)}}{(1-\eta)}-\phi_{1}\frac{\left(1-l*\right)^{(1-\eta)}}{(1-\eta)}-\mu*\left[(1-\alpha)\frac{\chi(v*)^{\alpha}((1-n*)e)^{(1-\alpha)}}{1-n*}\right]\right\} 
-\]
-}{\footnotesize \par}
-
-replacing in the previous eq. we have
-
-{\footnotesize 
-\[
-w*=(1-\alpha)(1-\theta)\zeta(k*)^{\theta}(n*l*)^{-\theta}+\alpha\left[\mu*\left((1-\sigma)-\frac{1}{\beta}\right)+\frac{1}{c*}(1-\theta)\zeta(k*)^{\theta}(n*l*)^{-\theta}l*\right]\frac{c*}{l*}
-\]
-}{\footnotesize \par}
-
-{\footnotesize 
-\[
-w*=(1-\alpha)(1-\theta)\zeta(k*)^{\theta}(n*l*)^{-\theta}+\alpha(1-\theta)\zeta(k*)^{\theta}(n*l*)^{-\theta}+\alpha\left[\mu*\left((1-\sigma)-\frac{1}{\beta}\right)\right]\frac{c*}{l*}
-\]
-}{\footnotesize \par}
-
-{\footnotesize 
-\[
-w*=(1-\theta)\zeta(k*)^{\theta}(n*l*)^{-\theta}+\alpha\left[\mu*\left(\frac{\left(1-\sigma\right)\beta-1}{\beta}\right)\right]\frac{c*}{l*}
-\]
-}{\footnotesize \par}
-
-{\footnotesize 
-\[
-w*n*l*=(1-\theta)\zeta(k*)^{\theta}(n*l*)^{1-\theta}+\alpha\left[\mu*\left(\frac{\left(1-\sigma\right)\beta-1}{\beta}\right)\right]c*n*
-\]
-}{\footnotesize \par}
-
-from ($\frac{\kappa v*}{c*}=\mu*\alpha\chi(v*)^{\alpha}((1-n*)e)^{(1-\alpha)})$we
-have {\footnotesize 
-\[
-w*n*l*=(1-\theta)\zeta(k*)^{\theta}(n*l*)^{1-\theta}+\frac{\kappa v*}{c*\left[\chi(v*)^{\alpha}((1-n*)e)^{(1-\alpha)})\right]}\left[\left(\frac{\left(1-\sigma\right)\beta-1}{\beta}\right)\right]c*n*
-\]
-}{\footnotesize \par}
-
-{\footnotesize 
-\[
-w*n*l*=(1-\theta)\zeta(k*)^{\theta}(n*l*)^{1-\theta}+\frac{\kappa v*}{\left[\sigma n*)\right]}\left[\left(\frac{\left(1-\sigma\right)\beta-1}{\beta}\right)\right]n*
-\]
-}{\footnotesize \par}
-
-{\footnotesize 
-\[
-w*n*l*=(1-\theta)\zeta(k*)^{\theta}(n*l*)^{1-\theta}-\frac{\kappa v*}{\sigma}\left[\left(\frac{1-\left(1-\sigma\right)\beta}{\beta}\right)\right]
-\]
-}With the technology parameter $\zeta$ chosen to normalize the steady-state
-level of output to unity, labor share can be computed as:
-
-\[
-w*n*l*=(1-\theta)-\frac{\kappa v*}{\sigma}\left[\left(\frac{1-\left(1-\sigma\right)\beta}{\beta}\right)\right]
-\]
-
-
-
-\subsubsection*{log-linearization around the steady state}
-
-we denote $\frac{\partial X_{t}}{X*}=\widetilde{X}_{t}$
-\begin{itemize}
-\item from (\ref{eq:}') and (\ref{eq:}'') we have
-
-\begin{itemize}
-\item $\frac{1}{c_{t}}=\beta E_{G}\left[\theta exp(z_{t})\zeta(\frac{n_{t}l_{t}}{k_{t}})^{(1-\theta)}+(1-\delta)\right]\frac{1}{c_{t+1}}$
+\item (\ref{eq:P1}'') $1=\beta\left[\theta\zeta(\frac{n*l*}{k*})^{(1-\theta)}+(1-\delta)\right]$
+\item (\ref{eq:P2}'') $\phi_{1}\left(1-l*\right)^{-\eta}=(1-\theta)\zeta(k*)^{\theta}(n*l*)^{-\theta}\frac{1}{c*}$
+\item (\ref{eq:P3}'') $\frac{\kappa v*}{c*}=\mu*\alpha\chi(v*)^{\alpha}((1-n*)e)^{(1-\alpha)}$
+\item (\ref{eq:P4}'') $\mu*=\beta\left\{ \phi_{1}\frac{\left(1-l*\right)^{(1-\eta)}}{(1-\eta)}-\phi_{2}\frac{\left(1-e\right)^{(1-\eta)}}{(1-\eta)}+(1-\theta)\zeta(k*)^{\theta}(n*l*)^{-\theta}\frac{l*}{c*}+\mu*\left[1-\sigma-(1-\alpha)\frac{\chi(v*)^{\alpha}((1-n*)e)^{(1-\alpha)}}{1-n*}\right]\right\} $
+\item (\ref{eq:P5}'') $c*+\delta k*+\kappa v*=\zeta(k*)^{\theta}(n*l*)^{(1-\theta)}$
+\item (\ref{eq:P6}'') $\sigma n*=\chi(v*)^{\alpha}((1-n*)e)^{(1-\alpha)}$
+\item (\ref{eq:P7}'') $w*n*l*=(1-\theta)-\frac{\kappa v*}{\sigma}\left[\left(\frac{1-\left(1-\sigma\right)\beta}{\beta}\right)\right]$
 \end{itemize}
 
-$ $
+\subsubsection*{Log-linearization around the steady state}
+
+we denote $\frac{\partial X_{t}}{X*}=\widetilde{X}_{t}$, and $X$ the value of $X$ at the steady state while $X_{t}$ is the value of $X$ at time $t$
+\begin{itemize}
+\item from (\ref{eq:P1}') and (\ref{eq:P7}'') we have :
+\begin{align*}
+  \cfrac{1}{c_t} &=\beta E_{t}\left[\theta exp(z_{t+1})\zeta(\frac{n_{t+1}l_{t+1}}{k_{t+1}})^{(1-\theta)}+(1-\delta)\right]\frac{1}{c_{t+1}} \\
+-\cfrac{\tilde{c_t}}{c} &=\beta E_{t}\left[\theta\zeta(\frac{nl}{k})^{(1-\theta)}\widetilde{z_{t+1}}+(1-\theta)\theta\zeta(\frac{nl}{k})^{-\theta}\frac{ln}{k}\frac{\partial n_{t+1}}{n}+(1-\theta)\theta\zeta(\frac{nl}{k})^{-\theta}\frac{ln}{k}\frac{\partial l_{t+1}}{l}+(1-\theta)\theta\zeta(\frac{nl}{k})^{-\theta}\left(\frac{-nl\partial k_{t+1}}{k^{2}}\right)\right]\frac{1}{c}\right\] \\
+-\cfrac{\widetilde{c_t}}{c} &=\beta E_{t}\left
+\end{align*}
+
+
 \begin{itemize}
 \item $\begin{array}{c}
 \frac{(-\partial c_{t})}{(c*)^{2}}=\beta\left[\theta\zeta(\frac{nl}{k})^{(1-\theta)}\widetilde{z_{t}}+(1-\theta)\theta\zeta(\frac{nl}{k})^{-\theta}\frac{ln}{k}\frac{\partial n_{t}}{n}+(1-\theta)\theta\zeta(\frac{nl}{k})^{-\theta}\frac{ln}{k}\frac{\partial l_{t}}{l}+(1-\theta)\theta\zeta(\frac{nl}{k})^{-\theta}\left(\frac{-nl\partial k_{t}}{k^{2}}\right)\right]\frac{1}{c}\\
@@ -394,5 +317,62 @@ w\widetilde{w}_{t}=(1-\alpha)\phi_{1}\left(1-l\right)^{-\eta}c\left[\widetilde{z
 \end{array}$%
 \end{minipage}}\end{itemize}
 \end{itemize}
+
+
+
+
+
+\section*{Annex}
+\label{Annex}
+\subsection*{Wage equation at the steady state}
+\label{subsec:annexI}
+
+In this section, we prove that the wage equation at the steady state equals (\ref{eq:P7}'').
+
+\begin{align*}
+w*&=(1-\alpha)(1-\theta)\zeta(k*)^{\theta}(n*l*)^{-\theta}+\alpha\left[\left(\phi_{2}\frac{\left(1-e\right)^{(1-\eta)}}{(1-\eta)}-\phi_{1}\frac{\left(1-l*\right)^{(1-\eta)}}{(1-\eta)}\right)-(1-\alpha)\frac{\chi(v*)^{\alpha}((1-n*)e)^{(1-\alpha)}}{1-n}\mu*\right]\frac{c*}{l*} \\
+w*&=(1-\alpha)(1-\theta)\zeta(k*)^{\theta}(n*l*)^{-\theta}+\alpha\left[\left(\phi_{2}\frac{\left(1-e\right)^{(1-\eta)}}{(1-\eta)}-\phi_{1}\frac{\left(1-l*\right)^{(1-\eta)}}{(1-\eta)}\right)-(1-\alpha)\frac{\chi(v*)^{\alpha}((1-n*)e)^{(1-\alpha)}}{1-n*}\mu*\right]\frac{c*}{l*} \\
+\end{align*} 
+
+From (\ref{eq:P4}'') we have 
+
+\begin{multline*}
+ \frac{\mu*}{\beta}-\mu*(1-\sigma) = \phi_{1}\frac{\left(1-l*\right)^{(1-\eta)}}{(1-\eta)}-\phi_{2}\frac{\left(1-e\right)^{(1-\eta)}}{(1-\eta)} \\+\frac{1}{c*}(1-\theta)\zeta(k*)^{\theta}(n*l*)^{-\theta}l*+\mu*\left[-(1-\alpha)\frac{\chi(v*)^{\alpha}((1-n*)e)^{(1-\alpha)}}{1-n*}\right]
+\end{multline*}
+\begin{multline*}
+\mu*(1-\sigma)-\frac{\mu*}{\beta}+\frac{1}{c*}(1-\theta)\zeta(k*)^{\theta}(n*l*)^{-\theta}l* = \phi_{2}\frac{\left(1-e\right)^{(1-\eta)}}{(1-\eta)}-\phi_{1}\frac{\left(1-l*\right)^{(1-\eta)}}{(1-\eta)}\\ -\mu*\left[(1-\alpha)\frac{\chi(v*)^{\alpha}((1-n*)e)^{(1-\alpha)}}{1-n*}\right]
+\end{multline*}
+\begin{multline*}
+\mu*\left((1-\sigma)-\frac{1}{\beta}\right)+\frac{1}{c*}(1-\theta)\zeta(k*)^{\theta}(n*l*)^{-\theta}l* = \phi_{2}\frac{\left(1-e\right)^{(1-\eta)}}{(1-\eta)}-\phi_{1}\frac{\left(1-l*\right)^{(1-\eta)}}{(1-\eta)}\\ -\mu*\left[(1-\alpha)\frac{\chi(v*)^{\alpha}((1-n*)e)^{(1-\alpha)}}{1-n*}\right]
+\end{multline*}
+
+Replacing in the previous eq. we have
+
+\begin{align*}
+w* &=(1-\alpha)(1-\theta)\zeta(k*)^{\theta}(n*l*)^{-\theta}+\alpha\left[\mu*\left((1-\sigma)-\frac{1}{\beta}\right)+\frac{1}{c*}(1-\theta)\zeta(k*)^{\theta}(n*l*)^{-\theta}l*\right]\frac{c*}{l*} \\
+w* &=(1-\alpha)(1-\theta)\zeta(k*)^{\theta}(n*l*)^{-\theta}+\alpha(1-\theta)\zeta(k*)^{\theta}(n*l*)^{-\theta}+\alpha\left[\mu*\left((1-\sigma)-\frac{1}{\beta}\right)\right]\frac{c*}{l*} \\
+w* &=(1-\theta)\zeta(k*)^{\theta}(n*l*)^{-\theta}+\alpha\left[\mu*\left(\frac{\left(1-\sigma\right)\beta-1}{\beta}\right)\right]\frac{c*}{l*} \\
+w*n*l* &=(1-\theta)\zeta(k*)^{\theta}(n*l*)^{1-\theta}+\alpha\left[\mu*\left(\frac{\left(1-\sigma\right)\beta-1}{\beta}\right)\right]c*n*
+\end{align*}
+
+From :
+\begin{align*}
+ \frac{\kappa v*}{c*} &= \mu*\alpha\chi(v*)^{\alpha}((1-n*)e)^{(1-\alpha)} 
+\end{align*}
+
+We have :
+\begin{align*}
+w*n*l* &=(1-\theta)\zeta(k*)^{\theta}(n*l*)^{1-\theta}+\frac{\kappa v*}{c*\left[\chi(v*)^{\alpha}((1-n*)e)^{(1-\alpha)})\right]}\left[\left(\frac{\left(1-\sigma\right)\beta-1}{\beta}\right)\right]c*n* \\
+w*n*l* &=(1-\theta)\zeta(k*)^{\theta}(n*l*)^{1-\theta}+\frac{\kappa v*}{\left[\sigma n*)\right]}\left[\left(\frac{\left(1-\sigma\right)\beta-1}{\beta}\right)\right]n* \\
+w*n*l* &=(1-\theta)\zeta(k*)^{\theta}(n*l*)^{1-\theta}-\frac{\kappa v*}{\sigma}\left[\left(\frac{1-\left(1-\sigma\right)\beta}{\beta}\right)\right]
+\end{align*}
+
+With the technology parameter $\zeta$ chosen to normalize the steady-state level of output to unity, labor share can be computed as :
+\begin{align*}
+ w*n*l*=(1-\theta)-\frac{\kappa v*}{\sigma}\left[\left(\frac{1-\left(1-\sigma\right)\beta}{\beta}\right)\right]
+\end{align*}
+
+
+
 
 \end{document}
