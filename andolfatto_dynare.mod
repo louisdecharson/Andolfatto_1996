@@ -1,4 +1,5 @@
-var c, n, l, k, v, mu, w, z, junk;
+var c, n, l, k, v, mu, w, z;
+predetermined_variables k,n,z;
 varexo epsilon_tilde;
 parameters beta, eta, phi1, phi2, zeta, theta, delta, rho, epsilon, chi, alpha, sigma, kappa, e;
 
@@ -6,7 +7,7 @@ beta = 0.99;
 eta=2.0;
 phi1=2.08;
 phi2=1.37;
-zeta=0.796562824;
+zeta=1.271719032;
 theta=0.36;
 delta=0.025;
 rho=0.95;
@@ -26,8 +27,9 @@ c+k(+1)+kappa*v=exp(z)*zeta*k^(theta)*(n*l)^(1-theta)+(1-delta)*k;
 n(+1)=(1-sigma)*n+chi*v^(alpha)*((1-n)*e)^(1-alpha);
 w=(1-alpha)*(1-theta)*exp(z)*zeta*(k/(n*l))^(theta)+alpha*((phi2/(1-eta)*(1-e)^(1-eta)-phi1/(1-eta)*(1-l)^(1-eta))+(1-alpha)*mu/(1-n)*chi*v^(alpha)*((1-n)*e)^(1-alpha))*c/l;
 z(+1)=rho*z+epsilon_tilde*epsilon;
-junk=0.9*junk(-1);
 end;
+
+
 
 initval;
 c=0.74;
@@ -38,12 +40,13 @@ v=0.095;
 mu=0.157657658;
 w=3.345702282;
 z=0;
-junk=0;
 end;
 
+steady;
+check;
 
 shocks;
-var epsilon_tilde; stderr 1;
+var epsilon_tilde; stderr 0.01;
 end;
 
 
