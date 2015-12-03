@@ -188,10 +188,14 @@ we denote $\frac{\partial X_{t}}{X*}=\widetilde{X}_{t}$, and $X$ the value of $X
 
 From (\ref{eq:P1}') and (\ref{eq:P7}'') we have :
 \begin{align*}
-  \cfrac{1}{c_t} &=\beta E_{t}\left[\theta exp(z_{t+1})\zeta\left(\frac{n_{t+1}l_{t+1}}{k_{t+1}}\right)^{(1-\theta)}+(1-\delta)\right]\frac{1}{c_{t+1}} \\
--\cfrac{\tilde{c_t}}{c} &=\beta E_{t}\left[\theta\zeta(\frac{nl}{k})^{(1-\theta)}\widetilde{z_{t+1}}+(1-\theta)\theta\zeta(\frac{nl}{k})^{-\theta}\frac{ln}{k}\frac{\partial n_{t+1}}{n}+(1-\theta)\theta\zeta(\frac{nl}{k})^{-\theta}\frac{ln}{k}\frac{\partial l_{t+1}}{l}+(1-\theta)\theta\zeta(\frac{nl}{k})^{-\theta}\left(nl\frac{-\partial k_{t+1}}{k^{2}}\right)\right]\frac{1}{c} \\
--\widetilde{c_t} &= \beta E_{t}\left\{\zeta*\theta*\left(\frac{nl}{k}\right)^{(1-\theta)}\left((1-\theta)(\widetilde{l_{t+1}}+\widetilde{n_{t+1}}-\widetilde{k_{t+1}})+\widetilde{z_{t+1}}\right)+1-\delta\right\}-\underbrace{\beta\left(\zeta*\theta*\left(\frac{nl}{k}\right)^{(1-\theta)}+1-\delta\right)}_{=1}E_t\widetilde{c_{t+1}}\\
-\widetilde{c_t} &= E_t\widetilde{c_{t+1}}-\beta E_{t}\left\{\zeta*\theta*\left(\frac{nl}{k}\right)^{(1-\theta)}\left((1-\theta)(\widetilde{l_{t+1}}+\widetilde{n_{t+1}}-\widetilde{k_{t+1}})+\widetilde{z_{t+1}}\right)+1-\delta\right\}
+\cfrac{1}{c_t} &= \beta E_{t}\left\{\theta exp(z_{t+1})\zeta\left(\frac{n_{t+1}l_{t+1}}{k_{t+1}}\right)^{(1-\theta)}+(1-\delta)\right\}\frac{1}{c_{t+1}} \\
+\end{align*}
+\begin{multline*}
+-\cfrac{\tilde{c_t}}{c} = \beta E_{t}\left\{\theta\zeta(\frac{nl}{k})^{(1-\theta)}\widetilde{z_{t+1}}+(1-\theta)\theta\zeta(\frac{nl}{k})^{-\theta}\frac{ln}{k}\frac{\partial n_{t+1}}{n}+(1-\theta)\theta\zeta(\frac{nl}{k})^{-\theta}\frac{ln}{k}\frac{\partial l_{t+1}}{l}+(1-\theta)\theta\zeta(\frac{nl}{k})^{-\theta}\left(nl\frac{-\partial k_{t+1}}{k^{2}}\right)\right\}\frac{1}{c}\\+\beta E_{t}\left\{\left(\zeta\theta\left(\frac{nl}{k}\right)^{(1-\theta)}+1-\delta\right)(-\frac{\partial c_{t+1}}{c^2})\right\}
+\end{multline*}
+\begin{align*}
+-\widetilde{c_t} &= \beta E_{t}\left\{\zeta*\theta*\left(\frac{nl}{k}\right)^{(1-\theta)}\left((1-\theta)(\widetilde{l_{t+1}}+\widetilde{n_{t+1}}-\widetilde{k_{t+1}})+\widetilde{z_{t+1}}\right)\right\}-\underbrace{\beta\left(\zeta*\theta*\left(\frac{nl}{k}\right)^{(1-\theta)}+1-\delta\right)}_{=1}E_t\widetilde{c_{t+1}}\\
+\widetilde{c_t} &= E_t\widetilde{c_{t+1}}-\beta E_{t}\left\{\zeta*\theta*\left(\frac{nl}{k}\right)^{(1-\theta)}\left((1-\theta)(\widetilde{l_{t+1}}+\widetilde{n_{t+1}}-\widetilde{k_{t+1}})+\widetilde{z_{t+1}}\right)\right\}
 \end{align*}
 
 \subsubsection{Equation (\ref{eq:P2})'}
@@ -268,6 +272,64 @@ w\widetilde{w}_{t}=(1-\alpha)\phi_{1}\left(1-l\right)^{-\eta}c\left[\widetilde{z
 +\alpha\left[\mu\left((1-\sigma)-\frac{1}{\beta}\right)+\phi_{1}\left(1-l\right)^{-\eta}\right]\frac{c}{l}\left(\widetilde{c}_{t}-\widetilde{l}_{t}\right)
 \end{multline*}
 
+
+\subsection{Matrix Form}
+The model has eight variables including three state variables $(k,n,z)$. 
+We start by the three static equations (\ref{eq:P2}),(\ref{eq:P3}) and (\ref{eq:P7}). We write them in matrix form, with $M_1$ \& $M_2$ $3x5$ matrixes.
+\begin{align}
+M_1
+\begin{pmatrix}
+  \widetilde{c_t} \\
+  \widetilde{l_t} \\
+  \widetilde{v_t} \\
+  \widetilde{\mu_t} \\
+  \widetilde{w_t} \\
+\end{pmatrix}
+&= M_2
+\begin{pmatrix}
+  \widetilde{k_t}\\
+  \widetilde{n_t}\\
+  \widetilde{z_t}\\
+\end{pmatrix}
+\end{align}
+We have five dynamic equations, we write them in matrix form, with $M_3^{I}$, $M_3^{L}$ $5x3$ matrices, $M_{4}^{L}$, $M_{4}^{I}$ $5x5$ matrices and $M_{5}$ a $5x6$ :
+\begin{align}
+  M_3^{I}\begin{pmatrix}
+    \widetilde{k_{t+1}} \\
+    \widetilde{n_{t+1}} \\
+    \widetilde{z_{t+1}} \\
+  \end{pmatrix} +
+M_3^{L}\begin{pmatrix}
+  \widetilde{k_{t}} \\
+  \widetilde{n_{t}} \\
+  \widetilde{z_{t}} \\
+\end{pmatrix}
+&= M_4^{I}\begin{pmatrix}
+  \widetilde{c_{t+1}} \\
+  \widetilde{l_{t+1}} \\
+  \widetilde{v_{t+1}} \\
+  \widetilde{\mu_{t+1}} \\
+  \widetilde{w_{t+1}} \\
+\end{pmatrix} 
++ M_4^{L}\begin{pmatrix}
+  \widetilde{c_{t}} \\
+  \widetilde{l_{t}} \\
+  \widetilde{v_{t}} \\
+  \widetilde{\mu_{t}} \\
+  \widetilde{w_{t}} \\
+\end{pmatrix}
++M_5 \begin{pmatrix}
+  \widetilde{\epsilon^{k}}_{t+1} \\
+  \widetilde{\epsilon^{n}}_{t+1} \\
+  \widetilde{\epsilon^{z}}_{t+1} \\
+  \widetilde{\epsilon^{c}}_{t+1} \\
+  \widetilde{\epsilon^{l}}_{t+1} \\
+  \widetilde{\epsilon^{v}}_{t+1} \\
+\end{pmatrix}
+\end{align}
+
+
+
 \newpage
 
 \section*{Annex}
@@ -319,6 +381,7 @@ With the technology parameter $\zeta$ chosen to normalize the steady-state level
 \begin{align*}
  w*n*l*=(1-\theta)-\frac{\kappa v*}{\sigma}\left[\left(\frac{1-\left(1-\sigma\right)\beta}{\beta}\right)\right]
 \end{align*}
+
 
 
 \end{document}
