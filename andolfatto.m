@@ -21,7 +21,7 @@ rho=0.95;
 epsilon=0.007;
 chi=1.011465308;
 alpha=0.60;
-sigma =0.15;
+sigma=0.15;
 kappa=0.105;
 e=0.165;
 
@@ -34,10 +34,14 @@ v=0.095;
 mu=0.157657658;
 w=3.345702282;
 z=0;
+y=1;
+I=1.01-c;
+lambda=1/c;
+
 
 % Displaying the steady states values
 ss_values = [c n l k v mu w z];
-disp('c  n  l  k  v  mu  w  z');
+disp('y c  I n  l  k  v  mu  w  z');
 disp(ss_values);
 
 % Linearized Model in Matrix Form
@@ -57,10 +61,10 @@ M5=zeros(5,5);
 
 % Equation 1
 M1(1,1)=1;
-M(1,3)=(l*(n+theta)-1)/(1-l);
+M1(1,3)=n*l/(1-l)+theta;
 
-M2(1,1)=-theta;
-M2(1,2)=theta,
+M2(1,1)=theta;
+M2(1,2)=-theta,
 M2(1,3)=1;
 
 % Equation 2
@@ -72,12 +76,13 @@ M2(2,4)=1;
 
 % Equation 3
 M1(3,1)=-alpha*(mu*((1-sigma)-1/beta)+phi1*(1-l)^(-eta));
-M1(3,3)=(1-alpha)*phi1*(1-l)^(-eta)*c*theta+aloha*phi1*(1-l)^(-eta)*c+alpha*(mu*((1-sigma)-1/beta)+phi1*(1-l)^(-eta));
+M1(3,3)=(1-alpha)*phi1*(1-l)^(-eta)*c*theta-alpha*phi1*(1-l)^(-eta)*c+alpha*(mu*((1-sigma)-1/beta)+phi1*(1-l)^(-eta));
 M1(3,5)=w;
 M1(3,6)=-alpha^2*(1-alpha)*sigma*n/(1-n)*mu*c/l;
 
 M2(3,1)=(1-alpha)*phi1*(1-l)^(-eta)*c*theta;
 M2(3,2)=-(1-alpha)*phi1*(1-l)^(-eta)*c*theta;
+M2(3,3)=(1-alpha)*phi1*(1-l)^(-eta)*c;
 M2(3,4)=alpha*c/l*(1-alpha)*sigma*n*mu/(1-n);
 
 % Equation 4
@@ -96,11 +101,11 @@ M1(5,6)=kappa*v;
 
 M2(5,1)=zeta*k^(theta)*(n*l)^(1-theta)*theta;
 M2(5,2)=zeta*k^(theta)*(n*l)^(1-theta)*(1-theta);
-M2(5,3)=zeta*k^(theta)*(n*l)^(1-theta)*;
+M2(5,3)=zeta*k^(theta)*(n*l)^(1-theta);
 
 % Equation 6
-M1(6,1)=-1/c;
-M2(6,5)=lambda;
+M1(6,1)=-1;
+M2(6,5)=1;
 
 
 % Dynamic Equations
@@ -114,7 +119,7 @@ M3_I(1,5)=c*lambda;
 
 M3_L(1,5)=-c*lambda;
 
-M4_I(1,3)=-(1-beta*(1-delta));
+M4_I(1,3)=-(1-beta*(1-delta))*(1-theta);
 
 M5(1,1)=c*lambda;
 M5(1,2)=(1-beta*(1-delta))*(1-theta);
@@ -140,12 +145,14 @@ M5(2,5)=beta*mu*(1-alpha)*sigma*n*alpha/(1-n);
 
 % Equation 9
 M3_I(3,2)=1;
-M3_L(3;2)=-(1-n-sigma*(1-alpha*n)/(1-n));
-M4_I(3,6)=sigm*alpha;
+
+M3_L(3,2)=-(1-n-sigma*(1-alpha*n))/(1-n);
+
+M4_I(3,6)=sigma*alpha;
 
 % Equation 10
 M3_I(4,1)=k;
-M3_L(4,1)=-(1-delta);
+M3_L(4,1)=-(1-delta)*k;
 M4_L(4,4)=I;
 
 % Equation 11
@@ -154,3 +161,229 @@ M3_L(5,3)=-rho;
 M5(5,3)=1;
 
 
+% Reduced Form
+%%%%%%%%%%%%%%
+
+M1_inv=inv(M1);
+
+L0=M3_I-M4_I*M1_inv*M2;
+L1=M4_L*M1_inv*M2-M3_L;
+L2=M5;
+
+W=inv(L0)*L1;
+Q=inv(L0)*L2;
+
+% Eigenvalues
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+[PP,DD]=eig(W);
+
+% PP is the matrix of the eigen vectors
+% DD is the diagonal matrix of the eigen values so that W*PP=PP*DD
+
+[llambda,kk]=sort(diag(DD));  %kk keeps the ranking of the eigenvalues 
+
+P1=PP(:,kk);
+P1I=inv(P1);
+MU1=P1I*W*P1;
+
+[abf abf] = size(MU1);
+
+ab=0;
+for i = 1:abf;
+if abs(MU1(i,i)) < 1,
+ab=ab+1;
+else;
+end;
+end;
+
+af = abf- ab;
+
+for i = 1:abf;
+if abs(MU1(i,i)) == 1,
+disp('Unit root')
+else;
+end;
+end;
+
+disp('backward    ')
+disp(ab)
+disp('forward')
+disp(af)
+
+disp('Eigenvalues')
+disp(' ')
+disp(diag(MU1));
+
+% Saddle Path Condition 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% coordonnées / variables backward
+P1IB=[P1I(4:5,1:3)];
+
+% coordonnées / variables forward
+P1IF=[-P1I(4:5,4:5)];
+
+% condition initiale
+GG=inv(P1IF)*P1IB;
+
+
+% Policy rules 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%dynamique variable backward
+WB=[W(1:3,1:3)];
+WF=[W(1:3,4:5)];
+PIB=WB+(WF*GG);
+
+%dynamique variable de contrôle
+M2B=[M2(1:6,1:3)];
+M2F=[M2(1:6,4:5)];
+PIC=M1\(M2B+M2F*GG);
+
+% Regle de decisions
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+disp('Policy rules(k,n,z) state variables') 
+disp(' ')
+disp(PIB)
+
+
+disp('Policy rules (c,y,l,I,w,v) control variables')
+disp(' ')
+disp(PIC)
+
+% Impulse Response Function
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+nrep=100;
+
+CHOC=[0 ; 0 ; 1]
+
+for j=1:nrep;
+RC=(PIB^(j-1))*CHOC;
+RCK(j)=RC(1);
+RCN(j)=RC(2);
+RCZ(j)=RC(3);
+end;
+
+for j=1:nrep;
+RC=(PIC*PIB^(j-1))*CHOC;
+ RCC(j)=RC(1);
+ RCY(j)=RC(2);
+ RCL(j)=RC(3);
+ RCI(j)=RC(4);
+ RCW(j)=RC(5);
+ RCV(j)=RC(6);
+end;
+
+figure
+subplot(221),plot(RCK(1:100))
+title('Capital stock (K)')
+xlabel('quarters')
+ylabel('% Dev.   ')
+
+subplot(222),plot(RCZ(1:100))
+title('Productivity (Z)')
+xlabel('quarters')
+ylabel('% Dev.   ')
+
+subplot(223),plot(RCW(1:100))
+title('Wages (W)')
+xlabel('quarters')
+ylabel('% Dev.   ')
+
+subplot(224),plot(RCN(1:100))
+title(' Employment rate (N)')
+xlabel('quarters')
+ylabel('% Dev.   ')
+
+
+figure
+subplot(221),plot(RCC(1:100))
+title('Consumption')
+xlabel('quarters')
+ylabel('% Dev.   ')
+
+subplot(222),plot(RCY(1:100))
+title('Output')
+xlabel('quarters')
+ylabel('% Dev.   ')
+
+
+subplot(223),plot(RCL(1:100))
+title('Hours')
+xlabel('quarters')
+ylabel('% Dev.   ')
+
+subplot(224),plot(RCI(1:100))
+title(' Investment')
+xlabel('quarters')
+ylabel('% Dev.   ')
+
+
+figure
+subplot(221),plot(RCV(1:100))
+title(' New Jobs')
+xlabel('quarters')
+ylabel('% Dev.   ')
+
+
+% Stochastic simulation
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+nsimul=1000;
+
+nlong=160;
+
+
+for j=1:nsimul;
+
+disp('simulation')
+disp(j)
+
+% simulation des jiemes parties cycliques 
+
+aleaa(1:nlong,j)=randn(nlong,1);
+
+% tirage des innovations
+
+for i=1:nlong;
+epsa(i)= aleaa(i,j) * epsilon;
+end;
+
+
+% construction des chocs CHT
+
+CHT(1)=epsa(1);
+
+for i=2:nlong;
+CHT(i)=rho*CHT(i-1)+epsa(i);
+end;
+
+% initialisation de la partie cyclique du capital et de l'emploi
+
+KC=zeros(2,nlong);
+
+
+% parties cycliques
+
+for i=2:nlong;
+KC(i)=PIB(1,1)*KC(i-1)+PIB(1,2)*CHT(i-1);
+
+end;
+
+for i=1:nlong;
+
+CC(i)=PIC(1,1)*KC(i)+PIC(1,2)*CHT(i);
+
+NC(i)=PIC(2,1)*KC(i)+PIC(2,2)*CHT(i);
+
+YC(i)=PIC(3,1)*KC(i)+PIC(3,2)*CHT(i);
+
+IC(i)=PIC(4,1)*KC(i)+PIC(4,2)*CHT(i);
+
+PC(i)=PIC(5,1)*KC(i)+PIC(5,2)*CHT(i);
+
+end;
