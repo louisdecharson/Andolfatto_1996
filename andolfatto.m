@@ -364,26 +364,140 @@ end;
 
 % initialisation de la partie cyclique du capital et de l'emploi
 
-KC=zeros(2,nlong);
-
+KNC=zeros(2,nlong);
+KNC(1,1)=0;
+KNC(2,1)=0;
 
 % parties cycliques
 
 for i=2:nlong;
-KC(i)=PIB(1,1)*KC(i-1)+PIB(1,2)*CHT(i-1);
+KNC(:,i)=PIB(1:2,1:2)*KNC(:,i-1)+PIB(1,3)*CHT(i-1);
 
 end;
 
 for i=1:nlong;
 
-CC(i)=PIC(1,1)*KC(i)+PIC(1,2)*CHT(i);
+CC(i)=PIC(1,1:2)*KNC(:,i)+PIC(1,3)*CHT(i);
 
-NC(i)=PIC(2,1)*KC(i)+PIC(2,2)*CHT(i);
+YC(i)=PIC(2,1:2)*KNC(:,i)+PIC(2,3)*CHT(i);
 
-YC(i)=PIC(3,1)*KC(i)+PIC(3,2)*CHT(i);
+LC(i)=PIC(3,1:2)*KNC(:,i)+PIC(3,3)*CHT(i);
 
-IC(i)=PIC(4,1)*KC(i)+PIC(4,2)*CHT(i);
+IC(i)=PIC(4,1:2)*KNC(:,i)+PIC(4,3)*CHT(i);
 
-PC(i)=PIC(5,1)*KC(i)+PIC(5,2)*CHT(i);
+WC(i)=PIC(5,1:2)*KNC(:,i)+PIC(5,3)*CHT(i);
+
+VC(i)=PIC(6,1:2)*KNC(:,i)+PIC(6,3)*CHT(i);
 
 end;
+
+
+% Business Cycles Properties
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+[CHPT,CHP]=hpfilter(CC,1600);
+[YHPT,YHP]=hpfilter(YC,1600);
+[LHPT,LHP]=hpfilter(LC,1600);
+[IHPT,IHP]=hpfilter(IC,1600);
+[WHPT,WHP]=hpfilter(WC,1600);
+[VHPT,VHP]=hpfilter(VC,1600);
+
+
+
+ETCHP(j)=std(CHP(1:nlong));
+ETYHP(j)=std(YHP(1:nlong));
+ETLHP(j)=std(LHP(1:nlong));
+ETIHP(j)=std(IHP(1:nlong));
+ETWHP(j)=std(WHP(1:nlong));
+ETVHP(j)=std(VHP(1:nlong));
+
+
+RHO=corrcoef(YHP,CHP);
+RHOCHP(j)=RHO(1,2);
+RHO=corrcoef(YHP,LHP);
+RHOLHP(j)=RHO(1,2);
+RHO=corrcoef(YHP,IHP);
+RHOIHP(j)=RHO(1,2);
+RHO=corrcoef(YHP,WHP);
+RHOWHP(j)=RHO(1,2);
+RHO=corrcoef(YHP,VHP);
+RHOVHP(j)=RHO(1,2);
+
+
+xxC=CHP(2:nlong);
+yyC=CHP(1:nlong-1);
+RHO=corrcoef(xxC,yyC);
+RHOCCHP(j)=RHO(1,2);
+
+xxY=YHP(2:nlong);
+yyY=YHP(1:nlong-1);
+RHO=corrcoef(xxY,yyY);
+RHOYYHP(j)=RHO(1,2);
+
+xxN=LHP(2:nlong);
+yyN=LHP(1:nlong-1);
+RHO=corrcoef(xxN,yyN);
+RHOLLHP(j)=RHO(1,2);
+
+
+xxI=IHP(2:nlong);
+yyI=IHP(1:nlong-1);
+RHO=corrcoef(xxI,yyI);
+RHOIIHP(j)=RHO(1,2);
+
+
+xxP=WHP(2:nlong);
+yyP=WHP(1:nlong-1);
+RHO=corrcoef(xxP,yyP);
+RHOWWHP(j)=RHO(1,2);
+
+xxP=VHP(2:nlong);
+yyP=VHP(1:nlong-1);
+RHO=corrcoef(xxP,yyP);
+RHOVVHP(j)=RHO(1,2);
+
+end;
+
+
+mETCHP=mean(ETCHP);
+mETYHP=mean(ETYHP);
+mETLHP=mean(ETLHP);
+mETIHP=mean(ETIHP);
+mETWHP=mean(ETWHP);
+mETVHP=mean(ETVHP);
+
+
+
+mRHOCHP=mean(RHOCHP);
+mRHOLHP=mean(RHOLHP);
+mRHOIHP=mean(RHOIHP);
+mRHOWHP=mean(RHOWHP);
+mRHOVHP=mean(RHOVHP);
+
+
+mRHOCCHP=mean(RHOCCHP);
+mRHOYYHP=mean(RHOYYHP);
+mRHOLLHP=mean(RHOLLHP);
+mRHOIIHP=mean(RHOIIHP);
+mRHOWWHP=mean(RHOWWHP);
+mRHOVVHP=mean(RHOVVHP);
+
+mET1=[mETCHP mETYHP mETLHP mETIHP mETWHP mETVHP]./mETYHP;
+mRHO1=[mRHOCHP  1  mRHOLHP mRHOIHP mRHOWHP mRHOVHP];
+mARHO1=[mRHOCCHP mRHOYYHP mRHOLLHP  mRHOIIHP mRHOWWHP mRHOVVHP];
+
+disp('variable order: C - Y - L - I - W - V')
+disp(' ')
+
+disp('relative standard deviation')
+disp(' ')
+disp(mET1)
+
+
+disp('correlation')
+disp(' ')
+disp(mRHO1)
+
+
+disp('serial correlation')
+disp(' ')
+disp(mARHO1)
